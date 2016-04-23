@@ -28,7 +28,7 @@ def rotar270(img):
 def main(): #Comentar el que no se quiera utilizar
     ini_point=time.time() #para el total
     starting_point=time.time() #Donde quiere empezar a calcular el tiempo
-    img=Image.open("imagenaux.jpg") #abre imagen
+    img=Image.open("aux.jpg") #abre imagen
     imgTrans = rotar90(img)
     imgTrans.save("imagentranspuesta90.png") #guarda la imagen transpuesta 90 grados
     elapsed_time=time.time()-starting_point #calculo
