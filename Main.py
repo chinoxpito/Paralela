@@ -23,13 +23,12 @@ vbox0=gtk.VBox(False,0)
 scrolled_window = gtk.ScrolledWindow()
 scrolled_window.set_border_width(10)
 scrolled_window.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_ALWAYS)
-#vbox0.pack_start(scrolled_window, True, True, 0)
-#scrolled_window.show()
-
 
 # FUNCION PARA AGREGAR UNA IMAGEN
 def Agregar(event):
     vbox0.remove(image)
+    imagenAnchuraMaxima = 600
+    imagenAlturaMaxima = 600
 
     dialog = gtk.FileChooserDialog("Elija la imagen", None, gtk.FILE_CHOOSER_ACTION_OPEN,
                                    (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
@@ -45,17 +44,12 @@ def Agregar(event):
     dialog.add_filter(filter)
     response = dialog.run()
     if response == gtk.RESPONSE_OK:
-        # self.pix = gtk.gdk.pixbuf_new_from_file(dialog.get_filename())
-        # self.pix = self.pix.scale_simple(640, 480, gtk.gdk.INTERP_BILINEAR)
-        #pixbuf = gtk.gdk.pixbuf_new_from_file(dialog.get_filename())
-        #escala = pixbuf.scale_simple(500, 500, gtk.gdk.INTERP_BILINEAR)
-        #image.set_from_pixbuf(escala)
-        #image = gtk.image_new_from_pixbuf(pixbuf)
         image.set_from_file(dialog.get_filename())
-        vbox0.pack_start(image)
         ima = Image.open(dialog.get_filename())
         ima.save("aux.jpg")
         ima.save("vol.jpg")
+        ima.save("Dim.jpg")
+        vbox0.pack_start(image)
 
     elif response == gtk.RESPONSE_CANCEL:
         print "Archivo no seleccionado"
@@ -65,6 +59,7 @@ def Agregar(event):
         em.run()
         em.destroy()
         raise SystemExit
+
     dialog.destroy()
 
 # VENTANA DE ACERCA DE ...
@@ -83,20 +78,6 @@ def about_win(widget):
 def Rotar(event):
     import commands
     result=commands.getoutput('/usr/bin/python Rotar.py')
-    print "caca"
-
-
-def ventana(img):
-    window = gtk.Window(gtk.WINDOW_TOPLEVEL)
-    window.set_position(gtk.WIN_POS_CENTER)
-    window.set_size_request(600, 600)
-    window.set_title(". . . P R U E B A . . .")
-
-    box = gtk.VBox(False,0)
-    box.pack_start(img)
-    window.add(box)
-    window.show_all()
-    window.connect("destroy", self.destroy)
 
 def Invertir(event):
     import commands
@@ -127,17 +108,31 @@ def Xxx(event):
     result = commands.getoutput('/usr/bin/python wea.py')
     image.show()
 
+
+def Ajustar(even):
+    imagenAnchuraMaxima=600
+    imagenAlturaMaxima=600
+    img = Image.open("aux.jpg")
+    width, height = img.size
+    print height
+    print width
+    img.thumbnail((imagenAnchuraMaxima, imagenAlturaMaxima), Image.ANTIALIAS)
+    img.save("Dim.jpg")
+    image.set_from_file("Dim.jpg")
+    image.show()
+
 def Volver(event):
     image.set_from_file("vol.jpg")
     image.show()
     ima = Image.open("vol.jpg")
     ima.save("aux.jpg")
 
+
 def main(args):
 
     win.set_title("... APLIKA ...")
     win.set_position(gtk.WIN_POS_CENTER)
-    win.set_size_request(600, 600)
+    win.set_size_request(800, 650)
     win.connect('delete-event', gtk.main_quit)
     win.connect("destroy",gtk.main_quit)
 
@@ -149,6 +144,8 @@ def main(args):
     # BOTONES
     btn1 = gtk.Button("Agregar")
     btn1.connect("clicked", Agregar)
+    btnA = gtk.Button("Ajustar")
+    btnA.connect("clicked", Ajustar)
     btn3 = gtk.Button("Invertir")
     btn3.connect("clicked", Invertir)
     btn4 = gtk.Button("Rotar")
@@ -174,6 +171,7 @@ def main(args):
     # ACA SE AGREGAN LOS BOTONES A LA CAJA hbox1
     hbox1 = gtk.HBox(False, 0) # declaracion de hbox1
     hbox1.pack_start(btn1, False, False, 1)
+    hbox1.pack_start(btnA, False, False, 1)
     hbox1.pack_start(btn3, False, False, 1)
     hbox1.pack_start(btn4, False, False, 1)
     hbox1.pack_start(btn6, False, False, 1)
