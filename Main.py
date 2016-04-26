@@ -115,6 +115,12 @@ def Reflejo(event):
     image.set_from_file('aux.jpg')
     image.show()
 
+def RGB(event):
+    import commands
+    result = commands.getoutput('/usr/bin/python Rgb.py')
+    image.set_from_file('aux.jpg')
+    image.show()
+
 def Agrandar(event):
     import commands
     result = commands.getoutput('/usr/bin/python Agrandar.py')
@@ -170,6 +176,8 @@ def main(args):
     btnDia.connect("clicked", Dianoche)
     btnRef = gtk.Button("Reflejo")
     btnRef.connect("clicked", Reflejo)
+    btnRgb = gtk.Button("RGB")
+    btnRgb.connect("clicked", RGB)
     btnAgran = gtk.Button("Agrandar")
     btnAgran.connect("clicked", Agrandar)
     btnAce = gtk.Button("Acerca de")
@@ -189,7 +197,7 @@ def main(args):
     hbox1.pack_start(btnSep, False, False, 1)
     hbox1.pack_start(btnDia, False, False, 1)
     hbox1.pack_start(btnRef, False, False, 1)
-
+    hbox1.pack_start(btnRgb, False, False, 1)
     hbox1.pack_start(btnVol, False, False, 1)
     hbox1.pack_start(btnAgran, False, False, 1)
     hbox2.pack_start(btnAce, False, False, 1)
