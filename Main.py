@@ -121,6 +121,18 @@ def RGB(event):
     image.set_from_file('aux.jpg')
     image.show()
 
+def InvertirColor(event):
+    import commands
+    result = commands.getoutput('/usr/bin/python invertirColores.py')
+    image.set_from_file('aux.jpg')
+    image.show()
+
+def Redimensionar(event):
+    import commands
+    result = commands.getoutput('/usr/bin/python Redimencionar.py')
+    image.set_from_file('aux.jpg')
+    image.show()
+
 def Agrandar(event):
     import commands
     result = commands.getoutput('/usr/bin/python Agrandar.py')
@@ -176,8 +188,12 @@ def main(args):
     btnDia.connect("clicked", Dianoche)
     btnRef = gtk.Button("Reflejo")
     btnRef.connect("clicked", Reflejo)
+    btnRed = gtk.Button("Redimensionar")
+    btnRed.connect("clicked", Redimensionar)
     btnRgb = gtk.Button("RGB")
     btnRgb.connect("clicked", RGB)
+    btnInvCo = gtk.Button("Invertir Colores")
+    btnInvCo.connect("clicked", InvertirColor)
     btnAgran = gtk.Button("Agrandar")
     btnAgran.connect("clicked", Agrandar)
     btnAce = gtk.Button("Acerca de")
@@ -198,6 +214,8 @@ def main(args):
     hbox1.pack_start(btnDia, False, False, 1)
     hbox1.pack_start(btnRef, False, False, 1)
     hbox1.pack_start(btnRgb, False, False, 1)
+    hbox1.pack_start(btnRed, False, False, 1)
+    hbox1.pack_start(btnInvCo, False, False, 1)
     hbox1.pack_start(btnVol, False, False, 1)
     hbox1.pack_start(btnAgran, False, False, 1)
     hbox2.pack_start(btnAce, False, False, 1)

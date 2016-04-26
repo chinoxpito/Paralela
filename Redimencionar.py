@@ -70,17 +70,17 @@ def redimencionarImg(img,img2):
 
 def main():
     starting_point=time.time()
-    imag = Image.open("base.png")
-    #TamaÃ±o de imagen tiene que estar en la misma escala que la original.
-    imag = imag.resize((200, 100), Image.ANTIALIAS)#para crear una imagen en blanco con la cual obtengo el tamaÃ±o de la final de la imagen redimencionada.
-    imag.save("output1.jpg")
+    imag = Image.open("aux.jpg")
+    #Tamaño de imagen tiene que estar en la misma escala que la original.
+    imag = imag.resize((200, 100), Image.ANTIALIAS)#para crear una imagen en blanco con la cual obtengo el tamaño de la final de la imagen redimencionada.
+    imag.save("aux.jpg")
 
     
-    img=Image.open("tatuajr.jpg")
-    img2=Image.open("output1.jpg")
+    img=Image.open("aux.jpg")
+    img2=Image.open("aux.jpg")
     
     imgRedimencionada=redimencionarImg(img,img2)
-    imgRedimencionada.save("salidaFinal2.jpg")
+    imgRedimencionada.save("aux.jpg")
     #saludo = raw_input("Escribe lo que sea")
     #print saludo
     elapsed_time=time.time()-starting_point

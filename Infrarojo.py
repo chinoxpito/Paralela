@@ -16,7 +16,7 @@ def retoquecolor(img):
 	for i in range(img.size[0]):
 		for j in range(img.size[1]):
 			r, g, b = img.getpixel((i, j))
-			img.putpixel((i, j), ((r+230)/3, (r+g+150)/3, (r+g+b+70)/3))
+			img.putpixel((i, j), ((r+250)/4, (r+g+250)/5, (r+g+b+250)/3))
 	return img
 
 
