@@ -27,8 +27,6 @@ scrolled_window.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_ALWAYS)
 # FUNCION PARA AGREGAR UNA IMAGEN
 def Agregar(event):
     vbox0.remove(image)
-    imagenAnchuraMaxima = 600
-    imagenAlturaMaxima = 600
 
     dialog = gtk.FileChooserDialog("Elija la imagen", None, gtk.FILE_CHOOSER_ACTION_OPEN,
                                    (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
@@ -78,6 +76,8 @@ def about_win(widget):
 def Rotar(event):
     import commands
     result=commands.getoutput('/usr/bin/python Rotar.py')
+    image.set_from_file('aux.jpg')
+    image.show()
 
 def Invertir(event):
     import commands
@@ -91,10 +91,22 @@ def Infrarojo(event):
     image.set_from_file('aux.jpg')
     image.show()
 
+def Dianoche(event):
+    import commands
+    result = commands.getoutput('/usr/bin/python Dianoche.py')
+    image.set_from_file('aux.jpg')
+    image.show()
+
 def Brillo(event):
     import commands
     result = commands.getoutput('/usr/bin/python Brillo.py')
     image.set_from_file('aux.jpg')
+    image.show()
+
+def Sepia(event): #Problemas con formato de imagen al apretar el boton ORIGINAL
+    import commands
+    result = commands.getoutput('/usr/bin/python Sepia.py')
+    image.set_from_file('aux.png')
     image.show()
 
 def Reflejo(event):
@@ -103,9 +115,9 @@ def Reflejo(event):
     image.set_from_file('aux.jpg')
     image.show()
 
-def Xxx(event):
+def Agrandar(event):
     import commands
-    result = commands.getoutput('/usr/bin/python wea.py')
+    result = commands.getoutput('/usr/bin/python Agrandar.py')
     image.show()
 
 
@@ -114,8 +126,6 @@ def Ajustar(even):
     imagenAlturaMaxima=600
     img = Image.open("aux.jpg")
     width, height = img.size
-    print height
-    print width
     img.thumbnail((imagenAnchuraMaxima, imagenAlturaMaxima), Image.ANTIALIAS)
     img.save("Dim.jpg")
     image.set_from_file("Dim.jpg")
@@ -135,64 +145,60 @@ def main(args):
     win.set_size_request(800, 650)
     win.connect('delete-event', gtk.main_quit)
     win.connect("destroy",gtk.main_quit)
-
-
     image.set_from_file("utem.jpg")
     image.show()
 
 
     # BOTONES
-    btn1 = gtk.Button("Agregar")
-    btn1.connect("clicked", Agregar)
-    btnA = gtk.Button("Ajustar")
-    btnA.connect("clicked", Ajustar)
-    btn3 = gtk.Button("Invertir")
-    btn3.connect("clicked", Invertir)
-    btn4 = gtk.Button("Rotar")
-    btn4.connect("clicked", Rotar)
-    btn5 = gtk.Button("Volver")
-    btn5.connect("clicked", Volver)
-    btn6 = gtk.Button("Infrarojo")
-    btn6.connect("clicked", Infrarojo)
-    btn8 = gtk.Button("Brillo")
-    btn8.connect("clicked", Brillo)
-    btn9 = gtk.Button("Reflejo")
-    btn9.connect("clicked", Reflejo)
-
-    btn7 = gtk.Button("XXX")
-    btn7.connect("clicked", Xxx)
-
-
-    btna = gtk.Button("Acerca de")
-    btna.connect("clicked", about_win)
-    btn2 = gtk.Button(" Salir")
-    btn2.connect("clicked",gtk.main_quit)
+    btnAgr = gtk.Button("Agregar")
+    btnAgr.connect("clicked", Agregar)
+    btnAju = gtk.Button("Ajustar")
+    btnAju.connect("clicked", Ajustar)
+    btnInv = gtk.Button("Invertir")
+    btnInv.connect("clicked", Invertir)
+    btnRot = gtk.Button("Rotar")
+    btnRot.connect("clicked", Rotar)
+    btnVol = gtk.Button("Original")
+    btnVol.connect("clicked", Volver)
+    btnInf = gtk.Button("Infrarojo")
+    btnInf.connect("clicked", Infrarojo)
+    btnBri = gtk.Button("Brillo")
+    btnBri.connect("clicked", Brillo)
+    btnSep = gtk.Button("Sepia")
+    btnSep.connect("clicked", Sepia)
+    btnDia = gtk.Button("Dia-Noche")
+    btnDia.connect("clicked", Dianoche)
+    btnRef = gtk.Button("Reflejo")
+    btnRef.connect("clicked", Reflejo)
+    btnAgran = gtk.Button("Agrandar")
+    btnAgran.connect("clicked", Agrandar)
+    btnAce = gtk.Button("Acerca de")
+    btnAce.connect("clicked", about_win)
+    btnSal = gtk.Button(" Salir")
+    btnSal.connect("clicked",gtk.main_quit)
 
     # ACA SE AGREGAN LOS BOTONES A LA CAJA hbox1
     hbox1 = gtk.HBox(False, 0) # declaracion de hbox1
-    hbox1.pack_start(btn1, False, False, 1)
-    hbox1.pack_start(btnA, False, False, 1)
-    hbox1.pack_start(btn3, False, False, 1)
-    hbox1.pack_start(btn4, False, False, 1)
-    hbox1.pack_start(btn6, False, False, 1)
-    hbox1.pack_start(btn8, False, False, 1)
-    hbox1.pack_start(btn9, False, False, 1)
+    hbox2 = gtk.HBox(False,0)
+    hbox1.pack_start(btnAgr, False, False, 1)
+    hbox1.pack_start(btnAju, False, False, 1)
+    hbox1.pack_start(btnInv, False, False, 1)
+    hbox1.pack_start(btnRot, False, False, 1)
+    hbox1.pack_start(btnInf, False, False, 1)
+    hbox1.pack_start(btnBri, False, False, 1)
+    hbox1.pack_start(btnSep, False, False, 1)
+    hbox1.pack_start(btnDia, False, False, 1)
+    hbox1.pack_start(btnRef, False, False, 1)
 
-    hbox1.pack_start(btn5, False, False, 1)
-    hbox1.pack_start(btn7, False, False, 1)
-    hbox1.pack_start(btna, False, False, 1)
-    hbox1.pack_start(btn2, False, False, 1)
+    hbox1.pack_start(btnVol, False, False, 1)
+    hbox1.pack_start(btnAgran, False, False, 1)
+    hbox2.pack_start(btnAce, False, False, 1)
+    hbox2.pack_start(btnSal, False, False, 1)
 
 
-    vbox0.pack_start(hbox1,False,False,10) # SE GENERA UN ESPACIO Y SE LE INCLUYEN LOS BOTONES
+    vbox0.pack_start(hbox1,False,False,1) # SE GENERA UN ESPACIO Y SE LE INCLUYEN LOS BOTONES
+    vbox0.pack_start(hbox2, False, False, 1)
     vbox0.pack_start(image)
-
-    #table = gtk.Table(2, 1, True)
-
-    #table.attach(image,0,1,0,1)
-    #table.add(vbox0)
-
-
 
     win.add(vbox0)
     win.show_all()

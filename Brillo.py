@@ -1,6 +1,4 @@
 from __future__ import division
-__author__ = 'Christopher Salvatierra L.'
-
 
 import numpy as np
 from PIL import Image
@@ -59,8 +57,6 @@ def main():
     adj = gtk.Adjustment(0.0, -1.0, 1.0, 0.1, 1.0, 0.0)
     spinner1 = gtk.SpinButton(adj, 1.0, 2)
     spinner1.set_wrap(True)
-    #spinner1.set_size_request(100, -1)
-    #hbox1.pack_start(spinner1, True, True, 0)
 
 
     label = gtk.Label()
@@ -76,8 +72,5 @@ def main():
     win.add(hbox1)
     win.show_all()
     gtk.main()
-
-
-
 
 main() #donde realiza las acciones para el brillo

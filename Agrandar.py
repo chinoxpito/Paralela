@@ -47,6 +47,7 @@ class SimpleImageViewer:
 
     def __init__(self, image_file):
         self.window = gtk.Window(gtk.WINDOW_TOPLEVEL)
+        self.window.set_title("... APLIKA ...")
         self.window.connect("delete_event", self.close_application)
         self.window.set_position(gtk.WIN_POS_CENTER_ALWAYS)
         self.window.set_default_size(800, 600)
