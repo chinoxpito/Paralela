@@ -138,6 +138,12 @@ def Agrandar(event):
     result = commands.getoutput('/usr/bin/python Agrandar.py')
     image.show()
 
+def Negativo(event):
+    import commands
+    result = commands.getoutput('/usr/bin/python Negativo.py')
+    image.set_from_file('aux.jpg')
+    image.show()
+
 
 def Ajustar(even):
     imagenAnchuraMaxima=600
@@ -160,7 +166,7 @@ def main(args):
 
     win.set_title("... APLIKA ...")
     win.set_position(gtk.WIN_POS_CENTER)
-    win.set_size_request(800, 650)
+    win.set_size_request(1000, 650)
     win.connect('delete-event', gtk.main_quit)
     win.connect("destroy",gtk.main_quit)
     image.set_from_file("utem.jpg")
@@ -196,6 +202,8 @@ def main(args):
     btnInvCo.connect("clicked", InvertirColor)
     btnAgran = gtk.Button("Agrandar")
     btnAgran.connect("clicked", Agrandar)
+    btnNeg = gtk.Button("Negativo")
+    btnNeg.connect("clicked", Negativo)
     btnAce = gtk.Button("Acerca de")
     btnAce.connect("clicked", about_win)
     btnSal = gtk.Button(" Salir")
@@ -218,6 +226,7 @@ def main(args):
     hbox1.pack_start(btnInvCo, False, False, 1)
     hbox1.pack_start(btnVol, False, False, 1)
     hbox1.pack_start(btnAgran, False, False, 1)
+    hbox2.pack_start(btnNeg, False, False, 1)
     hbox2.pack_start(btnAce, False, False, 1)
     hbox2.pack_start(btnSal, False, False, 1)
 
