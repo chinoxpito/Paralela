@@ -103,11 +103,6 @@ def main():
     vbox2.pack_start(hboxB, True, True, 1)
     vbox2.pack_start(btn1, True, True, 1)
 
-    #hbox1.add(vbox2)
-    #vbox2.pack_start(hscale, True, True, 1)
-    #vbox2.pack_start(hscale2, True, True, 1)
-    #vbox2.pack_start(hscale3, True, True, 1)
-    #hbox1.pack_start(btn1, True, True, 1)
     win.add(vbox2)
 
     win.show_all()

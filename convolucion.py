@@ -4,7 +4,11 @@ __author__ = 'jose'
 import numpy as np
 from PIL import Image
 import time
+import gtk
+win = gtk.Window()
+
 inicio = time.time()
+
 def convertirImgMatrixRGB(img):
     return np.array(img.convert("RGB"))
 def filtroLinealS(arrImg):
@@ -87,29 +91,63 @@ def filtroConvolucion(imagen):
     #imagenNuevaX.show()
     #imagenNuevaY.show()
     return imn #,imagenNuevaX,imagenNuevaY
-def convolucionImg(img, caso = 0):
+def convolucionImg(widget,img, caso = 0):
     arrImg = convertirImgMatrixRGB(img)
     if caso ==0:
+        print "caca"
         arrAux = filtroLinealS(arrImg)
     elif caso == 1:
+        print "caca pichi"
         arrAux = filtroLinealS2(arrImg)
     elif caso == 2:
         imgAux = filtroConvolucion(img)
+        imgAux.save('aux.jpg')
+        win.destroy()
         return imgAux
     convImg = Image.fromarray(arrAux)
+    convImg.save('aux.jpg')
+    win.destroy()
     return convImg
+
+def Salir(event):
+    win.destroy()
 def main():
-    img = Image.open('Lenna.png')
-    convImg = convolucionImg(img)
-    convImg.save('conv0.png')
-    print "Convolution 1 = "+str(time.time()-inicio)
+    win.set_title("Convolucion")
+    win.set_position(gtk.WIN_POS_CENTER)
+    win.set_size_request(600, 50)
+    win.connect('delete-event', gtk.main_quit)
+    win.connect("destroy", gtk.main_quit)
+
+    hbox1 = gtk.HBox(False, 0)
+
+    img = Image.open('aux.jpg')
     ini = time.time()
-    convImg = convolucionImg(img,1)
-    convImg.save('conv1.png')
-    print "Convolution 2 = "+str(time.time()-ini)
-    ini = time.time()
-    convImg= convolucionImg(img,2)
-    convImg.save('conv2.png')
+
+
+    btnR90Izq = gtk.Button("Convolucion 1")
+    btnR90Izq.connect("clicked", convolucionImg, img, 0)
+    btnR90Der = gtk.Button("Convolucion 2")
+    btnR90Der.connect("clicked", convolucionImg, img, 1)
+    btnR180 = gtk.Button("Convolucion 3")
+    btnR180.connect("clicked", convolucionImg,img, 2)
+    btnRSal = gtk.Button("Salir")
+    btnRSal.connect("clicked", Salir)
+
+    hbox1.pack_start(btnR90Izq, True, True, 1)
+    hbox1.pack_start(btnR90Der, True, True, 1)
+    hbox1.pack_start(btnR180, True, True, 1)
+    hbox1.pack_start(btnRSal, True, True, 1)
+
+    win.add(hbox1)
+    win.show_all()
+    gtk.main()
+
+
+
+    #img = Image.open('aux.jpg')
+    #ini = time.time()
+    #convImg= convolucionImg(img,2)
+    #convImg.save('aux.jpg')
     print "Convolution 3 = "+str(time.time()-ini)
 
 main()

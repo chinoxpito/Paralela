@@ -18,11 +18,15 @@ from PIL import Image, ImageChops, ImageOps
 
 # DECLARACION DE SUFIJOS PARA VARIABLES RECURRENTES (SOBRENOMBRES)
 win = gtk.Window()
+wi = gtk.Window()
 image = gtk.Image()
+im = gtk.Image()
 vbox0=gtk.VBox(False,0)
 scrolled_window = gtk.ScrolledWindow()
 scrolled_window.set_border_width(10)
 scrolled_window.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_ALWAYS)
+global fac
+fac = 0
 
 # FUNCION PARA AGREGAR UNA IMAGEN
 def Agregar(event):
@@ -59,6 +63,50 @@ def Agregar(event):
         raise SystemExit
 
     dialog.destroy()
+
+def AgregarMas(event):
+    global fac
+    #vbox0.remove(image)
+    if fac < 3:
+        dialog = gtk.FileChooserDialog("Elija la imagen", None, gtk.FILE_CHOOSER_ACTION_OPEN,
+                                       (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
+                                        gtk.STOCK_OPEN, gtk.RESPONSE_OK))
+        dialog.set_default_response(gtk.RESPONSE_OK)
+        filter = gtk.FileFilter()
+        filter.set_name("Imagen")
+        filter.add_mime_type("image/png")
+        filter.add_mime_type("image/jpeg")
+        filter.add_mime_type("*.png")
+        filter.add_mime_type("*.jpg")
+        filter.add_mime_type("*.jpeg")
+        dialog.add_filter(filter)
+        response = dialog.run()
+        if response == gtk.RESPONSE_OK:
+            image.set_from_file(dialog.get_filename())
+            ima = Image.open(dialog.get_filename())
+            name = "mascara"
+            fac = fac + 1
+            print fac
+            name = name + name[fac]
+            ima.save(name + ".jpg")
+            print name
+            #vbox0.pack_start(image)
+
+        elif response == gtk.RESPONSE_CANCEL:
+            print "Archivo no seleccionado"
+            print  "Saliendo . . ."
+            em = gtk.MessageDialog(None, gtk.DIALOG_DESTROY_WITH_PARENT, gtk.MESSAGE_ERROR,
+                                   gtk.BUTTONS_CLOSE, "Error al cargar imagen")
+            em.run()
+            em.destroy()
+            raise SystemExit
+
+        dialog.destroy()
+    else:
+        print "casdada"
+        fac = 10
+        print fac
+
 
 # VENTANA DE ACERCA DE ...
 def about_win(widget):
@@ -137,6 +185,11 @@ def Agrandar(event):
     import commands
     result = commands.getoutput('/usr/bin/python Agrandar.py')
     image.show()
+def Bordes(event):
+    import commands
+    result = commands.getoutput('/usr/bin/python Bordes.py')
+    image.set_from_file('aux.jpg')
+    image.show()
 
 def Negativo(event):
     import commands
@@ -144,6 +197,82 @@ def Negativo(event):
     image.set_from_file('aux.jpg')
     image.show()
 
+def EscalaGrises(event):
+    import commands
+    result = commands.getoutput('/usr/bin/python EscalaGrises.py')
+    image.set_from_file('aux.jpg')
+    image.show()
+
+def Nolineal(event):
+    import commands
+    result = commands.getoutput('/usr/bin/python Nolineal.py')
+    image.set_from_file('aux.jpg')
+    image.show()
+
+def Polar(event):
+    import commands
+    result = commands.getoutput('/usr/bin/python Polar.py')
+    image.set_from_file('aux.jpg')
+    image.show()
+
+def Convolucion(event):
+    import commands
+    result = commands.getoutput('/usr/bin/python convolucion.py')
+    image.set_from_file('aux.jpg')
+    image.show()
+
+def Mascara(event,f):
+    global fac
+    print "En Funcion"
+    print fac
+    if fac == 10:
+        import commands
+        result = commands.getoutput('/usr/bin/python Mascara.py')
+        image.set_from_file('aux.jpg')
+        print "pulento"
+        image.show()
+
+def MascaraVentana(event):
+    global fac
+    wi.set_title("... Mascara ...")
+    wi.set_position(gtk.WIN_POS_CENTER)
+    wi.set_size_request(200, 30)
+    #wi.connect('delete-event', gtk.main_quit)
+    #wi.connect("destroy", gtk.main_quit)
+
+    vboxMa = gtk.VBox(False, 0)
+    hboxBot = gtk.HBox(False, 0)
+    hboxIma1 = gtk.HBox(False, 0)
+    hboxIma2 = gtk.HBox(False, 0)
+    hboxIma3 = gtk.HBox(False, 0)
+
+    btnAgrMa = gtk.Button("Agregar")
+    btnAgrMa.connect("clicked", AgregarMas)
+    btnOk = gtk.Button("Combinar")
+    btnOk.connect("clicked", Mascara,fac)
+
+    hboxBot.pack_start(btnAgrMa, True, False, 1)
+    hboxBot.pack_start(btnOk, True, False, 1)
+    #im.set_from_file("mascaraa.jpg")
+    #hboxIma1.pack_start(im)
+    #im.set_from_file("mascaras.jpg")
+    #hboxIma2.pack_start(image)
+    #im.set_from_file("mascarac.jpg")
+    #hboxIma3.pack_start(im)
+    #vboxMa.pack_start(hboxBot, False, False, 1)
+    #vboxMa.pack_start(hboxIma1, False, False, 1)
+    #vboxMa.pack_start(hboxIma2, False, False, 1)
+    #vboxMa.pack_start(hboxIma3, False, False, 1)
+
+    wi.add(hboxBot)
+    wi.show_all()
+
+
+def Efectocolor(event):
+    import commands
+    result = commands.getoutput('/usr/bin/python Efectocolor.py')
+    image.set_from_file('aux.jpg')
+    image.show()
 
 def Ajustar(even):
     imagenAnchuraMaxima=600
@@ -202,8 +331,22 @@ def main(args):
     btnInvCo.connect("clicked", InvertirColor)
     btnAgran = gtk.Button("Agrandar")
     btnAgran.connect("clicked", Agrandar)
+    btnBor = gtk.Button("Bordes")
+    btnBor.connect("clicked", Bordes)
+    btnGris = gtk.Button("Escala Grises")
+    btnGris.connect("clicked", EscalaGrises)
     btnNeg = gtk.Button("Negativo")
     btnNeg.connect("clicked", Negativo)
+    btnCon = gtk.Button("Convolucion")
+    btnCon.connect("clicked", Convolucion)
+    btnNol = gtk.Button("No Lineal")
+    btnNol.connect("clicked", Nolineal)
+    btnEfe = gtk.Button("Efecto color")
+    btnEfe.connect("clicked", Efectocolor)
+    btnPol = gtk.Button("Polar")
+    btnPol.connect("clicked", Polar)
+    btnMas = gtk.Button("Mascara")
+    btnMas.connect("clicked", MascaraVentana)
     btnAce = gtk.Button("Acerca de")
     btnAce.connect("clicked", about_win)
     btnSal = gtk.Button(" Salir")
@@ -226,7 +369,14 @@ def main(args):
     hbox1.pack_start(btnInvCo, False, False, 1)
     hbox1.pack_start(btnVol, False, False, 1)
     hbox1.pack_start(btnAgran, False, False, 1)
+    hbox2.pack_start(btnCon, False, False, 1)
+    hbox2.pack_start(btnEfe, False, False, 1)
+    hbox2.pack_start(btnGris, False, False, 1)
+    hbox2.pack_start(btnPol, False, False, 1)
+    hbox2.pack_start(btnNol, False, False, 1)
+    hbox2.pack_start(btnBor, False, False, 1)
     hbox2.pack_start(btnNeg, False, False, 1)
+    hbox2.pack_start(btnMas, False, False, 1)
     hbox2.pack_start(btnAce, False, False, 1)
     hbox2.pack_start(btnSal, False, False, 1)
 

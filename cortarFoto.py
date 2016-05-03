@@ -43,7 +43,7 @@ def mezclarRGB(img,r,g,b):
 
 def main():
     starting_point=time.time()
-    img=Image.open("1.jpg")
+    img=Image.open("aux.jpg")
 
     #r,g,b componentes del color a mezclar en decimales
     # 255,0,0 rojo
@@ -51,7 +51,7 @@ def main():
     g=0
     b=0
     imgRGB=mezclarRGB(img,r,g,b)
-    imgRGB.save("output.png")    #guarda la imagen RGB
+    imgRGB.save("aux.png")    #guarda la imagen RGB
     elapsed_time=time.time()-starting_point
     print ""
     print "Serial Time [seconds]: " + str(elapsed_time)

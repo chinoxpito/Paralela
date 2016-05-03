@@ -35,7 +35,7 @@ def filtroLineal(img):
 def main():
     img = Image.open('aux.jpg')
     convImg = filtroLineal(img)
-    convImg.save('nlLenna0.png')
+    convImg.save('aux.jpg')
 
 main()
 
