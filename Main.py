@@ -215,6 +215,52 @@ def Polar(event):
     image.set_from_file('aux.jpg')
     image.show()
 
+def SumaFoto(event):
+    global fac
+    print "En Funcion"
+    print fac
+    if fac == 10:
+        import commands
+        result = commands.getoutput('/usr/bin/python sumaFotosToGIF.py')
+        image.set_from_file('Imagenes2/sumaAnimacion.gif')
+        image.show()
+
+
+def SumaFotoVentana(event):
+    global fac
+    wi.set_title("... Suma de fotos a GIF ...")
+    wi.set_position(gtk.WIN_POS_CENTER)
+    wi.set_size_request(200, 30)
+    # wi.connect('delete-event', gtk.main_quit)
+    # wi.connect("destroy", gtk.main_quit)
+
+    vboxSu = gtk.VBox(False, 0)
+    hboxBot = gtk.HBox(False, 0)
+    hboxIma1 = gtk.HBox(False, 0)
+    hboxIma2 = gtk.HBox(False, 0)
+    hboxIma3 = gtk.HBox(False, 0)
+
+    btnAgrSu = gtk.Button("Agregar")
+    btnAgrSu.connect("clicked", AgregarMas)
+    btnOk = gtk.Button("Sumar")
+    btnOk.connect("clicked", SumaFoto, fac)
+
+    hboxBot.pack_start(btnAgrSu, True, False, 1)
+    hboxBot.pack_start(btnOk, True, False, 1)
+    # im.set_from_file("mascaraa.jpg")
+    # hboxIma1.pack_start(im)
+    # im.set_from_file("mascaras.jpg")
+    # hboxIma2.pack_start(image)
+    # im.set_from_file("mascarac.jpg")
+    # hboxIma3.pack_start(im)
+    # vboxMa.pack_start(hboxBot, False, False, 1)
+    # vboxMa.pack_start(hboxIma1, False, False, 1)
+    # vboxMa.pack_start(hboxIma2, False, False, 1)
+    # vboxMa.pack_start(hboxIma3, False, False, 1)
+
+    wi.add(hboxBot)
+    wi.show_all()
+
 def Convolucion(event):
     import commands
     result = commands.getoutput('/usr/bin/python convolucion.py')
@@ -347,6 +393,8 @@ def main(args):
     btnPol.connect("clicked", Polar)
     btnMas = gtk.Button("Mascara")
     btnMas.connect("clicked", MascaraVentana)
+    btnSum = gtk.Button("Suma Fotos")
+    btnSum.connect("clicked", SumaFotoVentana)
     btnAce = gtk.Button("Acerca de")
     btnAce.connect("clicked", about_win)
     btnSal = gtk.Button(" Salir")
@@ -377,6 +425,7 @@ def main(args):
     hbox2.pack_start(btnBor, False, False, 1)
     hbox2.pack_start(btnNeg, False, False, 1)
     hbox2.pack_start(btnMas, False, False, 1)
+    hbox2.pack_start(btnSum, False, False, 1)
     hbox2.pack_start(btnAce, False, False, 1)
     hbox2.pack_start(btnSal, False, False, 1)
 
