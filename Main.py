@@ -66,6 +66,7 @@ def Agregar(event):
 
 def AgregarMas(event):
     global fac
+    print fac
     #vbox0.remove(image)
     if fac < 3:
         dialog = gtk.FileChooserDialog("Elija la imagen", None, gtk.FILE_CHOOSER_ACTION_OPEN,
@@ -102,7 +103,7 @@ def AgregarMas(event):
             raise SystemExit
 
         dialog.destroy()
-    else:
+    if fac == 3:
         print "casdada"
         fac = 10
         print fac
@@ -215,7 +216,7 @@ def Polar(event):
     image.set_from_file('aux.jpg')
     image.show()
 
-def SumaFoto(event):
+def SumaFoto(event,f):
     global fac
     print "En Funcion"
     print fac
@@ -223,14 +224,17 @@ def SumaFoto(event):
         import commands
         result = commands.getoutput('/usr/bin/python sumaFotosToGIF.py')
         image.set_from_file('Imagenes2/sumaAnimacion.gif')
+        fac = 0
         image.show()
 
 
 def SumaFotoVentana(event):
     global fac
+    fac = fac + 1
+    print fac
     wi.set_title("... Suma de fotos a GIF ...")
     wi.set_position(gtk.WIN_POS_CENTER)
-    wi.set_size_request(200, 30)
+    wi.set_size_request(400, 70)
     # wi.connect('delete-event', gtk.main_quit)
     # wi.connect("destroy", gtk.main_quit)
 
@@ -240,13 +244,20 @@ def SumaFotoVentana(event):
     hboxIma2 = gtk.HBox(False, 0)
     hboxIma3 = gtk.HBox(False, 0)
 
+    Dato = gtk.Label()
+    Dato.set_text("Agrege 2 imagenes ")
+
     btnAgrSu = gtk.Button("Agregar")
     btnAgrSu.connect("clicked", AgregarMas)
     btnOk = gtk.Button("Sumar")
     btnOk.connect("clicked", SumaFoto, fac)
 
-    hboxBot.pack_start(btnAgrSu, True, False, 1)
-    hboxBot.pack_start(btnOk, True, False, 1)
+    vboxSu.pack_start(Dato, True, False, 1)
+    hboxBot.pack_start(btnAgrSu, True, True, 1)
+    hboxBot.pack_start(btnOk, True, True, 1)
+    vboxSu.pack_start(hboxBot, True, False, 1)
+
+
     # im.set_from_file("mascaraa.jpg")
     # hboxIma1.pack_start(im)
     # im.set_from_file("mascaras.jpg")
@@ -258,7 +269,7 @@ def SumaFotoVentana(event):
     # vboxMa.pack_start(hboxIma2, False, False, 1)
     # vboxMa.pack_start(hboxIma3, False, False, 1)
 
-    wi.add(hboxBot)
+    wi.add(vboxSu)
     wi.show_all()
 
 def Convolucion(event):
@@ -276,15 +287,16 @@ def Mascara(event,f):
         result = commands.getoutput('/usr/bin/python Mascara.py')
         image.set_from_file('aux.jpg')
         print "pulento"
+        fac = 0
         image.show()
 
 def MascaraVentana(event):
     global fac
     wi.set_title("... Mascara ...")
     wi.set_position(gtk.WIN_POS_CENTER)
-    wi.set_size_request(200, 30)
-    #wi.connect('delete-event', gtk.main_quit)
-    #wi.connect("destroy", gtk.main_quit)
+    wi.set_size_request(400, 70)
+    # wi.connect('delete-event', gtk.main_quit)
+    # wi.connect("destroy", gtk.main_quit)
 
     vboxMa = gtk.VBox(False, 0)
     hboxBot = gtk.HBox(False, 0)
@@ -292,25 +304,30 @@ def MascaraVentana(event):
     hboxIma2 = gtk.HBox(False, 0)
     hboxIma3 = gtk.HBox(False, 0)
 
+    Dato = gtk.Label()
+    Dato.set_text("Agrege 3 imagenes ")
+
     btnAgrMa = gtk.Button("Agregar")
     btnAgrMa.connect("clicked", AgregarMas)
     btnOk = gtk.Button("Combinar")
-    btnOk.connect("clicked", Mascara,fac)
+    btnOk.connect("clicked", Mascara, fac)
 
-    hboxBot.pack_start(btnAgrMa, True, False, 1)
-    hboxBot.pack_start(btnOk, True, False, 1)
-    #im.set_from_file("mascaraa.jpg")
-    #hboxIma1.pack_start(im)
-    #im.set_from_file("mascaras.jpg")
-    #hboxIma2.pack_start(image)
-    #im.set_from_file("mascarac.jpg")
-    #hboxIma3.pack_start(im)
-    #vboxMa.pack_start(hboxBot, False, False, 1)
-    #vboxMa.pack_start(hboxIma1, False, False, 1)
-    #vboxMa.pack_start(hboxIma2, False, False, 1)
-    #vboxMa.pack_start(hboxIma3, False, False, 1)
+    vboxMa.pack_start(Dato, True, False, 1)
+    hboxBot.pack_start(btnAgrMa, True, True, 1)
+    hboxBot.pack_start(btnOk, True, True, 1)
+    vboxMa.pack_start(hboxBot, True, False, 1)
+    # im.set_from_file("mascaraa.jpg")
+    # hboxIma1.pack_start(im)
+    # im.set_from_file("mascaras.jpg")
+    # hboxIma2.pack_start(image)
+    # im.set_from_file("mascarac.jpg")
+    # hboxIma3.pack_start(im)
+    # vboxMa.pack_start(hboxBot, False, False, 1)
+    # vboxMa.pack_start(hboxIma1, False, False, 1)
+    # vboxMa.pack_start(hboxIma2, False, False, 1)
+    # vboxMa.pack_start(hboxIma3, False, False, 1)
 
-    wi.add(hboxBot)
+    wi.add(vboxMa)
     wi.show_all()
 
 
