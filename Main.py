@@ -128,12 +128,6 @@ def Rotar(event):
     image.set_from_file('aux.jpg')
     image.show()
 
-def Invertir(event):
-    import commands
-    result = commands.getoutput('/usr/bin/python Invertir.py')
-    image.set_from_file('aux.jpg')
-    image.show()
-
 def Infrarojo(event):
     import commands
     result = commands.getoutput('/usr/bin/python Infrarojo.py')
@@ -167,12 +161,6 @@ def Reflejo(event):
 def RGB(event):
     import commands
     result = commands.getoutput('/usr/bin/python Rgb.py')
-    image.set_from_file('aux.jpg')
-    image.show()
-
-def InvertirColor(event):
-    import commands
-    result = commands.getoutput('/usr/bin/python invertirColores.py')
     image.set_from_file('aux.jpg')
     image.show()
 
@@ -337,6 +325,62 @@ def Efectocolor(event):
     image.set_from_file('aux.jpg')
     image.show()
 
+def ConvAgif(event,f):
+    global fac
+    print "En Funcion"
+    print fac
+    if fac == 10:
+        import commands
+        result = commands.getoutput('/usr/bin/python toGIF.py')
+        image.set_from_file('animacion.gif')
+        fac = 0
+        image.show()
+
+
+def GIFventana(event):
+    global fac
+    fac = fac + 1
+    print fac
+    wi.set_title("... GIF ...")
+    wi.set_position(gtk.WIN_POS_CENTER)
+    wi.set_size_request(400, 70)
+    # wi.connect('delete-event', gtk.main_quit)
+    # wi.connect("destroy", gtk.main_quit)
+
+    vboxGi = gtk.VBox(False, 0)
+    hboxBot = gtk.HBox(False, 0)
+    hboxIma1 = gtk.HBox(False, 0)
+    hboxIma2 = gtk.HBox(False, 0)
+    hboxIma3 = gtk.HBox(False, 0)
+
+    Dato = gtk.Label()
+    Dato.set_text("Agrege 2 imagenes ")
+
+    btnAgrGi = gtk.Button("Agregar")
+    btnAgrGi.connect("clicked", AgregarMas)
+    btnOk = gtk.Button("Convertir")
+    btnOk.connect("clicked", ConvAgif, fac)
+
+    vboxGi.pack_start(Dato, True, False, 1)
+    hboxBot.pack_start(btnAgrGi, True, True, 1)
+    hboxBot.pack_start(btnOk, True, True, 1)
+    vboxGi.pack_start(hboxBot, True, False, 1)
+
+
+    # im.set_from_file("mascaraa.jpg")
+    # hboxIma1.pack_start(im)
+    # im.set_from_file("mascaras.jpg")
+    # hboxIma2.pack_start(image)
+    # im.set_from_file("mascarac.jpg")
+    # hboxIma3.pack_start(im)
+    # vboxMa.pack_start(hboxBot, False, False, 1)
+    # vboxMa.pack_start(hboxIma1, False, False, 1)
+    # vboxMa.pack_start(hboxIma2, False, False, 1)
+    # vboxMa.pack_start(hboxIma3, False, False, 1)
+
+    wi.add(vboxGi)
+    wi.show_all()
+
 def Ajustar(even):
     imagenAnchuraMaxima=600
     imagenAlturaMaxima=600
@@ -370,8 +414,6 @@ def main(args):
     btnAgr.connect("clicked", Agregar)
     btnAju = gtk.Button("Ajustar")
     btnAju.connect("clicked", Ajustar)
-    btnInv = gtk.Button("Invertir")
-    btnInv.connect("clicked", Invertir)
     btnRot = gtk.Button("Rotar")
     btnRot.connect("clicked", Rotar)
     btnVol = gtk.Button("Original")
@@ -390,8 +432,6 @@ def main(args):
     btnRed.connect("clicked", Redimensionar)
     btnRgb = gtk.Button("RGB")
     btnRgb.connect("clicked", RGB)
-    btnInvCo = gtk.Button("Invertir Colores")
-    btnInvCo.connect("clicked", InvertirColor)
     btnAgran = gtk.Button("Agrandar")
     btnAgran.connect("clicked", Agrandar)
     btnBor = gtk.Button("Bordes")
@@ -412,6 +452,8 @@ def main(args):
     btnMas.connect("clicked", MascaraVentana)
     btnSum = gtk.Button("Suma Fotos")
     btnSum.connect("clicked", SumaFotoVentana)
+    btnGi = gtk.Button("Convertir a GIF")
+    btnGi.connect("clicked", GIFventana)
     btnAce = gtk.Button("Acerca de")
     btnAce.connect("clicked", about_win)
     btnSal = gtk.Button(" Salir")
@@ -422,7 +464,6 @@ def main(args):
     hbox2 = gtk.HBox(False,0)
     hbox1.pack_start(btnAgr, False, False, 1)
     hbox1.pack_start(btnAju, False, False, 1)
-    hbox1.pack_start(btnInv, False, False, 1)
     hbox1.pack_start(btnRot, False, False, 1)
     hbox1.pack_start(btnInf, False, False, 1)
     hbox1.pack_start(btnBri, False, False, 1)
@@ -431,7 +472,6 @@ def main(args):
     hbox1.pack_start(btnRef, False, False, 1)
     hbox1.pack_start(btnRgb, False, False, 1)
     hbox1.pack_start(btnRed, False, False, 1)
-    hbox1.pack_start(btnInvCo, False, False, 1)
     hbox1.pack_start(btnVol, False, False, 1)
     hbox1.pack_start(btnAgran, False, False, 1)
     hbox2.pack_start(btnCon, False, False, 1)
@@ -443,6 +483,7 @@ def main(args):
     hbox2.pack_start(btnNeg, False, False, 1)
     hbox2.pack_start(btnMas, False, False, 1)
     hbox2.pack_start(btnSum, False, False, 1)
+    hbox2.pack_start(btnGi, False, False, 1)
     hbox2.pack_start(btnAce, False, False, 1)
     hbox2.pack_start(btnSal, False, False, 1)
 
