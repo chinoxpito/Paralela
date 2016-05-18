@@ -60,12 +60,15 @@ def main(): #Comentar el que no se quiera utilizar
     btnR90Der.connect("clicked", rotar270, img)
     btnR180 = gtk.Button("180")
     btnR180.connect("clicked", rotar180, img)
+    btnR270 = gtk.Button("270")
+    btnR270.connect("clicked", rotar270, img)
     btnRSal = gtk.Button("Salir")
     btnRSal.connect("clicked", Salir)
 
     hbox1.pack_start(btnR90Izq, True, True, 1)
     hbox1.pack_start(btnR90Der, True, True, 1)
     hbox1.pack_start(btnR180, True, True, 1)
+    hbox1.pack_start(btnR270, True, True, 1)
     hbox1.pack_start(btnRSal, True, True, 1)
 
     win.add(hbox1)
