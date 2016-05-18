@@ -54,7 +54,7 @@ def main():
             copy=copy-1
 
     nombreSalida='Imagenes2/sumaAnimacion.gif'
-    delay=1
+    delay=10
     filepath='Imagenes2/*jpg'
     toGif(filepath,delay,nombreSalida)
     
