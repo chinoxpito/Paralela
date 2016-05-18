@@ -1,4 +1,3 @@
-__author__ = 'Fco_Hernan'
 
 import numpy as np
 from PIL import Image

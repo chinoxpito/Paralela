@@ -1,4 +1,4 @@
-__author__ = 'jose'
+
 from PIL import Image, ImageOps
 import time
 inicio = time.time()

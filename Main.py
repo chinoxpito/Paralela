@@ -27,6 +27,8 @@ scrolled_window.set_border_width(10)
 scrolled_window.set_policy(gtk.POLICY_AUTOMATIC, gtk.POLICY_ALWAYS)
 global fac
 fac = 0
+global Paralelo
+Paralelo = 100
 
 # FUNCION PARA AGREGAR UNA IMAGEN
 def Agregar(event):
@@ -104,19 +106,59 @@ def AgregarMas(event):
 
         dialog.destroy()
     if fac == 3:
-        print "casdada"
         fac = 10
-        print fac
+
+
+def AgregarMasGif(event):
+    global fac
+    print fac
+    # vbox0.remove(image)
+    if fac < 5:
+        dialog = gtk.FileChooserDialog("Elija la imagen", None, gtk.FILE_CHOOSER_ACTION_OPEN,
+                                       (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
+                                        gtk.STOCK_OPEN, gtk.RESPONSE_OK))
+        dialog.set_default_response(gtk.RESPONSE_OK)
+        filter = gtk.FileFilter()
+        filter.set_name("Imagen")
+        filter.add_mime_type("image/png")
+        filter.add_mime_type("image/jpeg")
+        filter.add_mime_type("*.png")
+        filter.add_mime_type("*.jpg")
+        filter.add_mime_type("*.jpeg")
+        dialog.add_filter(filter)
+        response = dialog.run()
+        if response == gtk.RESPONSE_OK:
+            image.set_from_file(dialog.get_filename())
+            ima = Image.open(dialog.get_filename())
+            name = "asdfghj"
+            fac = fac + 1
+            print fac
+            name = name + name[fac]
+            ima.save(name + ".jpg")
+            print name
+            # vbox0.pack_start(image)
+
+        elif response == gtk.RESPONSE_CANCEL:
+            print "Archivo no seleccionado"
+            print  "Saliendo . . ."
+            em = gtk.MessageDialog(None, gtk.DIALOG_DESTROY_WITH_PARENT, gtk.MESSAGE_ERROR,
+                                   gtk.BUTTONS_CLOSE, "Error al cargar imagen")
+            em.run()
+            em.destroy()
+            raise SystemExit
+
+        dialog.destroy()
+    if fac == 5:
+        fac = 10
 
 
 # VENTANA DE ACERCA DE ...
 def about_win(widget):
     about = gtk.AboutDialog()
-    about.set_program_name("WEAS DE IMAGEN APLIQUEICHON ")
-    about.set_version("1.0")
-    about.set_copyright("DISTRIBUCION LIBRE !!! Ni ahi con el copyright ")
-    about.set_comments("Desarrolladores: Chinaski - Belaly - Borincho - Kathi ")
-    about.set_website("https://www.facebook.com/chinoxpito")
+    about.set_program_name("Procesamiento de imagenes")
+    about.set_copyright("Laboratorio 1 Computacion Paralela ")
+    about.set_comments("Desarrolladores: Acuna - Cerro - Saez - Vasquez.\n Profesor Oscar Magna V. ")
+    about.set_website("http://www.utem.cl/")
     about.set_logo(gtk.gdk.pixbuf_new_from_file("utem.jpg"))
     about.run()
     about.destroy()
@@ -135,10 +177,12 @@ def Infrarojo(event):
     image.show()
 
 def Dianoche(event):
+
     import commands
     result = commands.getoutput('/usr/bin/python Dianoche.py')
     image.set_from_file('aux.jpg')
     image.show()
+
 
 def Brillo(event):
     import commands
@@ -146,7 +190,7 @@ def Brillo(event):
     image.set_from_file('aux.jpg')
     image.show()
 
-def Sepia(event): #Problemas con formato de imagen al apretar el boton ORIGINAL
+def Sepia(event):
     import commands
     result = commands.getoutput('/usr/bin/python Sepia.py')
     image.set_from_file('aux.png')
@@ -174,6 +218,7 @@ def Agrandar(event):
     import commands
     result = commands.getoutput('/usr/bin/python Agrandar.py')
     image.show()
+
 def Bordes(event):
     import commands
     result = commands.getoutput('/usr/bin/python Bordes.py')
@@ -206,8 +251,6 @@ def Polar(event):
 
 def SumaFoto(event,f):
     global fac
-    print "En Funcion"
-    print fac
     if fac == 10:
         import commands
         result = commands.getoutput('/usr/bin/python sumaFotosToGIF.py')
@@ -219,12 +262,9 @@ def SumaFoto(event,f):
 def SumaFotoVentana(event):
     global fac
     fac = fac + 1
-    print fac
     wi.set_title("... Suma de fotos a GIF ...")
     wi.set_position(gtk.WIN_POS_CENTER)
     wi.set_size_request(400, 70)
-    # wi.connect('delete-event', gtk.main_quit)
-    # wi.connect("destroy", gtk.main_quit)
 
     vboxSu = gtk.VBox(False, 0)
     hboxBot = gtk.HBox(False, 0)
@@ -245,18 +285,6 @@ def SumaFotoVentana(event):
     hboxBot.pack_start(btnOk, True, True, 1)
     vboxSu.pack_start(hboxBot, True, False, 1)
 
-
-    # im.set_from_file("mascaraa.jpg")
-    # hboxIma1.pack_start(im)
-    # im.set_from_file("mascaras.jpg")
-    # hboxIma2.pack_start(image)
-    # im.set_from_file("mascarac.jpg")
-    # hboxIma3.pack_start(im)
-    # vboxMa.pack_start(hboxBot, False, False, 1)
-    # vboxMa.pack_start(hboxIma1, False, False, 1)
-    # vboxMa.pack_start(hboxIma2, False, False, 1)
-    # vboxMa.pack_start(hboxIma3, False, False, 1)
-
     wi.add(vboxSu)
     wi.show_all()
 
@@ -268,13 +296,10 @@ def Convolucion(event):
 
 def Mascara(event,f):
     global fac
-    print "En Funcion"
-    print fac
     if fac == 10:
         import commands
         result = commands.getoutput('/usr/bin/python Mascara.py')
         image.set_from_file('aux.jpg')
-        print "pulento"
         fac = 0
         image.show()
 
@@ -283,8 +308,6 @@ def MascaraVentana(event):
     wi.set_title("... Mascara ...")
     wi.set_position(gtk.WIN_POS_CENTER)
     wi.set_size_request(400, 70)
-    # wi.connect('delete-event', gtk.main_quit)
-    # wi.connect("destroy", gtk.main_quit)
 
     vboxMa = gtk.VBox(False, 0)
     hboxBot = gtk.HBox(False, 0)
@@ -304,20 +327,9 @@ def MascaraVentana(event):
     hboxBot.pack_start(btnAgrMa, True, True, 1)
     hboxBot.pack_start(btnOk, True, True, 1)
     vboxMa.pack_start(hboxBot, True, False, 1)
-    # im.set_from_file("mascaraa.jpg")
-    # hboxIma1.pack_start(im)
-    # im.set_from_file("mascaras.jpg")
-    # hboxIma2.pack_start(image)
-    # im.set_from_file("mascarac.jpg")
-    # hboxIma3.pack_start(im)
-    # vboxMa.pack_start(hboxBot, False, False, 1)
-    # vboxMa.pack_start(hboxIma1, False, False, 1)
-    # vboxMa.pack_start(hboxIma2, False, False, 1)
-    # vboxMa.pack_start(hboxIma3, False, False, 1)
 
     wi.add(vboxMa)
     wi.show_all()
-
 
 def Efectocolor(event):
     import commands
@@ -327,8 +339,16 @@ def Efectocolor(event):
 
 def ConvAgif(event,f):
     global fac
-    print "En Funcion"
-    print fac
+    im = Image.open("asdfghjd.jpg")
+    im.save('Imagenes/asdfghjd.png')
+    im = Image.open("asdfghjf.jpg")
+    im.save('Imagenes/asdfghjf.png')
+    im = Image.open("asdfghjg.jpg")
+    im.save('Imagenes/asdfghjg.png')
+    im = Image.open("asdfghjh.jpg")
+    im.save('Imagenes/asdfghjh.png')
+    im = Image.open("asdfghjs.jpg")
+    im.save('Imagenes/asdfghjs.png')
     if fac == 10:
         import commands
         result = commands.getoutput('/usr/bin/python toGIF.py')
@@ -339,13 +359,9 @@ def ConvAgif(event,f):
 
 def GIFventana(event):
     global fac
-    fac = fac + 1
-    print fac
     wi.set_title("... GIF ...")
     wi.set_position(gtk.WIN_POS_CENTER)
     wi.set_size_request(400, 70)
-    # wi.connect('delete-event', gtk.main_quit)
-    # wi.connect("destroy", gtk.main_quit)
 
     vboxGi = gtk.VBox(False, 0)
     hboxBot = gtk.HBox(False, 0)
@@ -354,10 +370,10 @@ def GIFventana(event):
     hboxIma3 = gtk.HBox(False, 0)
 
     Dato = gtk.Label()
-    Dato.set_text("Agrege 2 imagenes ")
+    Dato.set_text("Agrege 5 imagenes ")
 
     btnAgrGi = gtk.Button("Agregar")
-    btnAgrGi.connect("clicked", AgregarMas)
+    btnAgrGi.connect("clicked", AgregarMasGif)
     btnOk = gtk.Button("Convertir")
     btnOk.connect("clicked", ConvAgif, fac)
 
@@ -365,18 +381,6 @@ def GIFventana(event):
     hboxBot.pack_start(btnAgrGi, True, True, 1)
     hboxBot.pack_start(btnOk, True, True, 1)
     vboxGi.pack_start(hboxBot, True, False, 1)
-
-
-    # im.set_from_file("mascaraa.jpg")
-    # hboxIma1.pack_start(im)
-    # im.set_from_file("mascaras.jpg")
-    # hboxIma2.pack_start(image)
-    # im.set_from_file("mascarac.jpg")
-    # hboxIma3.pack_start(im)
-    # vboxMa.pack_start(hboxBot, False, False, 1)
-    # vboxMa.pack_start(hboxIma1, False, False, 1)
-    # vboxMa.pack_start(hboxIma2, False, False, 1)
-    # vboxMa.pack_start(hboxIma3, False, False, 1)
 
     wi.add(vboxGi)
     wi.show_all()
@@ -398,11 +402,32 @@ def Volver(event):
     ima.save("aux.jpg")
 
 
+def activate_cb(button, active):
+    # if the button (i.e. the switch) is active, set the title
+    # of the window to "Switch Example"
+    if button.get_active():
+        self.set_title("Switch Example")
+    # else, set it to "" (empty string)
+    else:
+        self.set_title("")
+
+
+def on_button_toggled(button, name):
+    if button.get_active():
+        state = "on"
+        global Paralelo
+        Paralelo = 101
+        print Paralelo
+    else:
+        state = "off"
+        Paralelo = 100
+        print Paralelo
+
 def main(args):
 
-    win.set_title("... APLIKA ...")
+    win.set_title("... Procesador de Imagenes ...")
     win.set_position(gtk.WIN_POS_CENTER)
-    win.set_size_request(1000, 650)
+    win.set_size_request(900, 650)
     win.connect('delete-event', gtk.main_quit)
     win.connect("destroy",gtk.main_quit)
     image.set_from_file("utem.jpg")
@@ -458,12 +483,16 @@ def main(args):
     btnAce.connect("clicked", about_win)
     btnSal = gtk.Button(" Salir")
     btnSal.connect("clicked",gtk.main_quit)
+    #btnPara = gtk.ToggleButton("Paralelo")
+    #btnPara.connect("toggled", on_button_toggled, 1)
+
 
     # ACA SE AGREGAN LOS BOTONES A LA CAJA hbox1
     hbox1 = gtk.HBox(False, 0) # declaracion de hbox1
     hbox2 = gtk.HBox(False,0)
     hbox1.pack_start(btnAgr, False, False, 1)
-    hbox1.pack_start(btnAju, False, False, 1)
+    hbox1.pack_start(btnEfe, False, False, 1)
+    hbox1.pack_start(btnGris, False, False, 1)
     hbox1.pack_start(btnRot, False, False, 1)
     hbox1.pack_start(btnInf, False, False, 1)
     hbox1.pack_start(btnBri, False, False, 1)
@@ -472,11 +501,7 @@ def main(args):
     hbox1.pack_start(btnRef, False, False, 1)
     hbox1.pack_start(btnRgb, False, False, 1)
     hbox1.pack_start(btnRed, False, False, 1)
-    hbox1.pack_start(btnVol, False, False, 1)
-    hbox1.pack_start(btnAgran, False, False, 1)
-    hbox2.pack_start(btnCon, False, False, 1)
-    hbox2.pack_start(btnEfe, False, False, 1)
-    hbox2.pack_start(btnGris, False, False, 1)
+    hbox1.pack_start(btnCon, False, False, 1)
     hbox2.pack_start(btnPol, False, False, 1)
     hbox2.pack_start(btnNol, False, False, 1)
     hbox2.pack_start(btnBor, False, False, 1)
@@ -484,8 +509,12 @@ def main(args):
     hbox2.pack_start(btnMas, False, False, 1)
     hbox2.pack_start(btnSum, False, False, 1)
     hbox2.pack_start(btnGi, False, False, 1)
+    hbox2.pack_start(btnAju, False, False, 1)
+    hbox2.pack_start(btnVol, False, False, 1)
+    hbox2.pack_start(btnAgran, False, False, 1)
     hbox2.pack_start(btnAce, False, False, 1)
     hbox2.pack_start(btnSal, False, False, 1)
+    #hbox2.pack_start(btnPara, False, False, 1)
 
 
     vbox0.pack_start(hbox1,False,False,1) # SE GENERA UN ESPACIO Y SE LE INCLUYEN LOS BOTONES
@@ -495,6 +524,7 @@ def main(args):
     win.add(vbox0)
     win.show_all()
     gtk.main()
+
 
     return True
 

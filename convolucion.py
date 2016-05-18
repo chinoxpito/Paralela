@@ -1,6 +1,5 @@
 from numpy.matrixlib.defmatrix import matrix
 
-__author__ = 'jose'
 import numpy as np
 from PIL import Image
 import time

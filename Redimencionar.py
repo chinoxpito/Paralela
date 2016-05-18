@@ -1,5 +1,5 @@
 # -*- coding: cp1252 -*-
-__author__ = 'Luis Miguel leon'
+
 import numpy as np
 from PIL import Image
 import time

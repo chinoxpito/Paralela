@@ -20,8 +20,8 @@ def toGif(fp, delay, output):
 def main():
     starting_point = time.time()
     nombreSalida = "animacion.gif"
-    delay = 1
-    filepath = "imagenes/*png"
+    delay = 30
+    filepath = "Imagenes/*png"
     toGif(filepath, delay, nombreSalida)
     elapsed_time = time.time() - starting_point
     print ""

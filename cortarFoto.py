@@ -1,4 +1,3 @@
-__author__ = 'francisco'
 
 import numpy as np
 from StringIO import StringIO
@@ -45,8 +44,6 @@ def main():
     starting_point=time.time()
     img=Image.open("aux.jpg")
 
-    #r,g,b componentes del color a mezclar en decimales
-    # 255,0,0 rojo
     r=255
     g=0
     b=0
@@ -57,8 +54,7 @@ def main():
     print "Serial Time [seconds]: " + str(elapsed_time)
 
 main()
-#ruta='/home/francisco/Documentos/Laboratorio-2-Paralela-2014/Produccion/Francisco Ramirez/Estrategia Paralelo/'
-#cortarImagen(ruta,0,236)
+
 cortarImagen(0,236)
 
 

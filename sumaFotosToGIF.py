@@ -1,4 +1,4 @@
-__author__ = 'Francisca'
+
 # -*- coding: utf-8 -*-
 
 import numpy as np
@@ -41,7 +41,7 @@ def main():
     for k in range (sec):
         ALFA=transp[k]
         ALFA2=1.0-transp[k]
-        imagenSumada=sumarImagenes('vol.jpg','galaxia.jpg',ALFA,ALFA2)
+        imagenSumada=sumarImagenes('mascaras.jpg','mascarac.jpg',ALFA,ALFA2)
         if(k<10):
             imagenSumada.save('Imagenes2/resultado00'+str(k)+'.jpg')
         if(copy>9):

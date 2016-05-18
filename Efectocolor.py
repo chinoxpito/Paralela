@@ -1,4 +1,4 @@
-__author__ = 'jose'
+
 import numpy as np
 from PIL import Image
 import time

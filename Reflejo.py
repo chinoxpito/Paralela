@@ -1,6 +1,4 @@
 from __future__ import division
-__author__ = 'Christopher Salvatierra L.'
-
 
 import numpy as np
 from PIL import Image
