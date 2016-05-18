@@ -151,6 +151,50 @@ def AgregarMasGif(event):
     if fac == 5:
         fac = 10
 
+def AgregarMasGif(event):
+    global fac
+    print fac
+    # vbox0.remove(image)
+    if fac < 5:
+        dialog = gtk.FileChooserDialog("Elija la imagen", None, gtk.FILE_CHOOSER_ACTION_OPEN,
+                                       (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
+                                        gtk.STOCK_OPEN, gtk.RESPONSE_OK))
+        dialog.set_default_response(gtk.RESPONSE_OK)
+        filter = gtk.FileFilter()
+        filter.set_name("Imagen")
+        filter.add_mime_type("image/png")
+        filter.add_mime_type("image/jpeg")
+        filter.add_mime_type("*.png")
+        filter.add_mime_type("*.jpg")
+        filter.add_mime_type("*.jpeg")
+        dialog.add_filter(filter)
+        response = dialog.run()
+        if response == gtk.RESPONSE_OK:
+            image.set_from_file(dialog.get_filename())
+            ima = Image.open(dialog.get_filename())
+            name = "asdfghj"
+            fac = fac + 1
+            print fac
+            name = name + name[fac]
+            ima.save(name + ".jpg")
+            print name
+            # vbox0.pack_start(image)
+
+        elif response == gtk.RESPONSE_CANCEL:
+            print "Archivo no seleccionado"
+            print  "Saliendo . . ."
+            em = gtk.MessageDialog(None, gtk.DIALOG_DESTROY_WITH_PARENT, gtk.MESSAGE_ERROR,
+                                   gtk.BUTTONS_CLOSE, "Error al cargar imagen")
+            em.run()
+            em.destroy()
+            raise SystemExit
+
+        dialog.destroy()
+    if fac == 5:
+        print "casdada"
+        fac = 10
+        print fac
+
 
 # VENTANA DE ACERCA DE ...
 def about_win(widget):
@@ -165,98 +209,170 @@ def about_win(widget):
 
 # FUNCION QUE LLAMA AL CODIGO ROTAR
 def Rotar(event):
+    starting_point = time.time()
     import commands
     result=commands.getoutput('/usr/bin/python Rotar.py')
     image.set_from_file('aux.jpg')
     image.show()
+    elapsed_time = time.time() - starting_point
+    print ""
+    print "Serial Time [seconds]: " + str(elapsed_time)
 
 def Infrarojo(event):
+    starting_point = time.time()
     import commands
     result = commands.getoutput('/usr/bin/python Infrarojo.py')
     image.set_from_file('aux.jpg')
     image.show()
+    elapsed_time = time.time() - starting_point
+    print ""
+    print "Serial Time [seconds]: " + str(elapsed_time)
 
 def Dianoche(event):
+<<<<<<< HEAD
 
+=======
+    starting_point = time.time()
+>>>>>>> 2cd5ba73a0fee42918ac8c426f4277a18b6d5d43
     import commands
     result = commands.getoutput('/usr/bin/python Dianoche.py')
     image.set_from_file('aux.jpg')
     image.show()
+    elapsed_time = time.time() - starting_point
+    print ""
+    print "Serial Time [seconds]: " + str(elapsed_time)
 
 
 def Brillo(event):
+    starting_point = time.time()
     import commands
     result = commands.getoutput('/usr/bin/python Brillo.py')
     image.set_from_file('aux.jpg')
     image.show()
+    elapsed_time = time.time() - starting_point
+    print ""
+    print "Serial Time [seconds]: " + str(elapsed_time)
 
+<<<<<<< HEAD
 def Sepia(event):
+=======
+def Sepia(event): #Problemas con formato de imagen al apretar el boton ORIGINAL
+    starting_point = time.time()
+>>>>>>> 2cd5ba73a0fee42918ac8c426f4277a18b6d5d43
     import commands
     result = commands.getoutput('/usr/bin/python Sepia.py')
     image.set_from_file('aux.png')
     image.show()
+    elapsed_time = time.time() - starting_point
+    print ""
+    print "Serial Time [seconds]: " + str(elapsed_time)
 
 def Reflejo(event):
+    starting_point = time.time()
     import commands
     result = commands.getoutput('/usr/bin/python Reflejo.py')
     image.set_from_file('aux.jpg')
     image.show()
+    elapsed_time = time.time() - starting_point
+    print ""
+    print "Serial Time [seconds]: " + str(elapsed_time)
 
 def RGB(event):
+    starting_point = time.time()
     import commands
     result = commands.getoutput('/usr/bin/python Rgb.py')
     image.set_from_file('aux.jpg')
     image.show()
+    elapsed_time = time.time() - starting_point
+    print ""
+    print "Serial Time [seconds]: " + str(elapsed_time)
 
 def Redimensionar(event):
+    starting_point = time.time()
     import commands
     result = commands.getoutput('/usr/bin/python Redimencionar.py')
     image.set_from_file('aux.jpg')
     image.show()
+    elapsed_time = time.time() - starting_point
+    print ""
+    print "Serial Time [seconds]: " + str(elapsed_time)
 
 def Agrandar(event):
+    starting_point = time.time()
     import commands
     result = commands.getoutput('/usr/bin/python Agrandar.py')
     image.show()
+<<<<<<< HEAD
+=======
+    elapsed_time = time.time() - starting_point
+    print ""
+    print "Serial Time [seconds]: " + str(elapsed_time)
+>>>>>>> 2cd5ba73a0fee42918ac8c426f4277a18b6d5d43
 
 def Bordes(event):
+    starting_point = time.time()
     import commands
     result = commands.getoutput('/usr/bin/python Bordes.py')
     image.set_from_file('aux.jpg')
     image.show()
+    elapsed_time = time.time() - starting_point
+    print ""
+    print "Serial Time [seconds]: " + str(elapsed_time)
 
 def Negativo(event):
+    starting_point = time.time()
     import commands
     result = commands.getoutput('/usr/bin/python Negativo.py')
     image.set_from_file('aux.jpg')
     image.show()
+    elapsed_time = time.time() - starting_point
+    print ""
+    print "Serial Time [seconds]: " + str(elapsed_time)
 
 def EscalaGrises(event):
+    starting_point = time.time()
     import commands
     result = commands.getoutput('/usr/bin/python EscalaGrises.py')
     image.set_from_file('aux.jpg')
     image.show()
+    elapsed_time = time.time() - starting_point
+    print ""
+    print "Serial Time [seconds]: " + str(elapsed_time)
 
 def Nolineal(event):
+    starting_point = time.time()
     import commands
     result = commands.getoutput('/usr/bin/python Nolineal.py')
     image.set_from_file('aux.jpg')
     image.show()
+    elapsed_time = time.time() - starting_point
+    print ""
+    print "Serial Time [seconds]: " + str(elapsed_time)
+
 
 def Polar(event):
+    starting_point = time.time()
     import commands
     result = commands.getoutput('/usr/bin/python Polar.py')
     image.set_from_file('aux.jpg')
     image.show()
+    elapsed_time = time.time() - starting_point
+    print ""
+    print "Serial Time [seconds]: " + str(elapsed_time)
 
 def SumaFoto(event,f):
     global fac
     if fac == 10:
         import commands
+        starting_point = time.time()
         result = commands.getoutput('/usr/bin/python sumaFotosToGIF.py')
+        elapsed_time = time.time() - starting_point
+        print ""
+        print "Serial Time [seconds]: " + str(elapsed_time)
         image.set_from_file('Imagenes2/sumaAnimacion.gif')
         fac = 0
         image.show()
+
 
 
 def SumaFotoVentana(event):
@@ -290,18 +406,28 @@ def SumaFotoVentana(event):
 
 def Convolucion(event):
     import commands
+    starting_point = time.time()
     result = commands.getoutput('/usr/bin/python convolucion.py')
+    elapsed_time = time.time() - starting_point
+    print ""
+    print "Serial Time [seconds]: " + str(elapsed_time)
     image.set_from_file('aux.jpg')
     image.show()
+
 
 def Mascara(event,f):
     global fac
     if fac == 10:
         import commands
+        starting_point = time.time()
         result = commands.getoutput('/usr/bin/python Mascara.py')
+        elapsed_time = time.time() - starting_point
+        print ""
+        print "Serial Time [seconds]: " + str(elapsed_time)
         image.set_from_file('aux.jpg')
         fac = 0
         image.show()
+
 
 def MascaraVentana(event):
     global fac
@@ -332,13 +458,23 @@ def MascaraVentana(event):
     wi.show_all()
 
 def Efectocolor(event):
+    starting_point = time.time()
     import commands
     result = commands.getoutput('/usr/bin/python Efectocolor.py')
     image.set_from_file('aux.jpg')
     image.show()
+    elapsed_time = time.time() - starting_point
+    print ""
+    print "Serial Time [seconds]: " + str(elapsed_time)
+
 
 def ConvAgif(event,f):
     global fac
+<<<<<<< HEAD
+=======
+    print "En Funcion"
+    print fac
+>>>>>>> 2cd5ba73a0fee42918ac8c426f4277a18b6d5d43
     im = Image.open("asdfghjd.jpg")
     im.save('Imagenes/asdfghjd.png')
     im = Image.open("asdfghjf.jpg")
@@ -351,14 +487,23 @@ def ConvAgif(event,f):
     im.save('Imagenes/asdfghjs.png')
     if fac == 10:
         import commands
+        starting_point = time.time()
         result = commands.getoutput('/usr/bin/python toGIF.py')
+        elapsed_time = time.time() - starting_point
+        print ""
+        print "Serial Time [seconds]: " + str(elapsed_time)
         image.set_from_file('animacion.gif')
         fac = 0
         image.show()
 
 
+
 def GIFventana(event):
     global fac
+<<<<<<< HEAD
+=======
+    print fac
+>>>>>>> 2cd5ba73a0fee42918ac8c426f4277a18b6d5d43
     wi.set_title("... GIF ...")
     wi.set_position(gtk.WIN_POS_CENTER)
     wi.set_size_request(400, 70)
