@@ -108,6 +108,50 @@ def AgregarMas(event):
         fac = 10
         print fac
 
+def AgregarMasGif(event):
+    global fac
+    print fac
+    # vbox0.remove(image)
+    if fac < 5:
+        dialog = gtk.FileChooserDialog("Elija la imagen", None, gtk.FILE_CHOOSER_ACTION_OPEN,
+                                       (gtk.STOCK_CANCEL, gtk.RESPONSE_CANCEL,
+                                        gtk.STOCK_OPEN, gtk.RESPONSE_OK))
+        dialog.set_default_response(gtk.RESPONSE_OK)
+        filter = gtk.FileFilter()
+        filter.set_name("Imagen")
+        filter.add_mime_type("image/png")
+        filter.add_mime_type("image/jpeg")
+        filter.add_mime_type("*.png")
+        filter.add_mime_type("*.jpg")
+        filter.add_mime_type("*.jpeg")
+        dialog.add_filter(filter)
+        response = dialog.run()
+        if response == gtk.RESPONSE_OK:
+            image.set_from_file(dialog.get_filename())
+            ima = Image.open(dialog.get_filename())
+            name = "asdfghj"
+            fac = fac + 1
+            print fac
+            name = name + name[fac]
+            ima.save(name + ".jpg")
+            print name
+            # vbox0.pack_start(image)
+
+        elif response == gtk.RESPONSE_CANCEL:
+            print "Archivo no seleccionado"
+            print  "Saliendo . . ."
+            em = gtk.MessageDialog(None, gtk.DIALOG_DESTROY_WITH_PARENT, gtk.MESSAGE_ERROR,
+                                   gtk.BUTTONS_CLOSE, "Error al cargar imagen")
+            em.run()
+            em.destroy()
+            raise SystemExit
+
+        dialog.destroy()
+    if fac == 5:
+        print "casdada"
+        fac = 10
+        print fac
+
 
 # VENTANA DE ACERCA DE ...
 def about_win(widget):
@@ -245,18 +289,6 @@ def SumaFotoVentana(event):
     hboxBot.pack_start(btnOk, True, True, 1)
     vboxSu.pack_start(hboxBot, True, False, 1)
 
-
-    # im.set_from_file("mascaraa.jpg")
-    # hboxIma1.pack_start(im)
-    # im.set_from_file("mascaras.jpg")
-    # hboxIma2.pack_start(image)
-    # im.set_from_file("mascarac.jpg")
-    # hboxIma3.pack_start(im)
-    # vboxMa.pack_start(hboxBot, False, False, 1)
-    # vboxMa.pack_start(hboxIma1, False, False, 1)
-    # vboxMa.pack_start(hboxIma2, False, False, 1)
-    # vboxMa.pack_start(hboxIma3, False, False, 1)
-
     wi.add(vboxSu)
     wi.show_all()
 
@@ -304,20 +336,9 @@ def MascaraVentana(event):
     hboxBot.pack_start(btnAgrMa, True, True, 1)
     hboxBot.pack_start(btnOk, True, True, 1)
     vboxMa.pack_start(hboxBot, True, False, 1)
-    # im.set_from_file("mascaraa.jpg")
-    # hboxIma1.pack_start(im)
-    # im.set_from_file("mascaras.jpg")
-    # hboxIma2.pack_start(image)
-    # im.set_from_file("mascarac.jpg")
-    # hboxIma3.pack_start(im)
-    # vboxMa.pack_start(hboxBot, False, False, 1)
-    # vboxMa.pack_start(hboxIma1, False, False, 1)
-    # vboxMa.pack_start(hboxIma2, False, False, 1)
-    # vboxMa.pack_start(hboxIma3, False, False, 1)
 
     wi.add(vboxMa)
     wi.show_all()
-
 
 def Efectocolor(event):
     import commands
@@ -329,6 +350,16 @@ def ConvAgif(event,f):
     global fac
     print "En Funcion"
     print fac
+    im = Image.open("asdfghjd.jpg")
+    im.save('Imagenes/asdfghjd.png')
+    im = Image.open("asdfghjf.jpg")
+    im.save('Imagenes/asdfghjf.png')
+    im = Image.open("asdfghjg.jpg")
+    im.save('Imagenes/asdfghjg.png')
+    im = Image.open("asdfghjh.jpg")
+    im.save('Imagenes/asdfghjh.png')
+    im = Image.open("asdfghjs.jpg")
+    im.save('Imagenes/asdfghjs.png')
     if fac == 10:
         import commands
         result = commands.getoutput('/usr/bin/python toGIF.py')
@@ -339,7 +370,6 @@ def ConvAgif(event,f):
 
 def GIFventana(event):
     global fac
-    fac = fac + 1
     print fac
     wi.set_title("... GIF ...")
     wi.set_position(gtk.WIN_POS_CENTER)
@@ -354,10 +384,10 @@ def GIFventana(event):
     hboxIma3 = gtk.HBox(False, 0)
 
     Dato = gtk.Label()
-    Dato.set_text("Agrege 2 imagenes ")
+    Dato.set_text("Agrege 5 imagenes ")
 
     btnAgrGi = gtk.Button("Agregar")
-    btnAgrGi.connect("clicked", AgregarMas)
+    btnAgrGi.connect("clicked", AgregarMasGif)
     btnOk = gtk.Button("Convertir")
     btnOk.connect("clicked", ConvAgif, fac)
 
@@ -400,7 +430,7 @@ def Volver(event):
 
 def main(args):
 
-    win.set_title("... APLIKA ...")
+    win.set_title("... Procesador de Imagenes ...")
     win.set_position(gtk.WIN_POS_CENTER)
     win.set_size_request(1000, 650)
     win.connect('delete-event', gtk.main_quit)
